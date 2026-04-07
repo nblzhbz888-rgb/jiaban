@@ -4,6 +4,7 @@ import type { ElectronWorkspaceCliProfile, ElectronWorkspaceTerminalSession } fr
 import { useResizeObserver } from '@vueuse/core'
 import { computed, nextTick, onBeforeUnmount, onMounted, shallowRef, useTemplateRef, watch } from 'vue'
 
+import { useDesktopLogger } from '../../composables/useDesktopLogger'
 import { useIslandState } from './useIslandState'
 import { useIslandWindowFrame } from './useIslandWindowFrame'
 
@@ -40,6 +41,7 @@ const screenAvailWidth = shallowRef(1440)
 const panelContentHeight = shallowRef(0)
 const shellRef = useTemplateRef<HTMLDivElement>('shell')
 const panelContentRef = useTemplateRef<HTMLDivElement>('panelContent')
+const islandLog = useDesktopLogger('island-ui')
 
 const panelVisible = computed(() => isOpen.value)
 const shellExpanded = panelVisible
@@ -238,6 +240,24 @@ function updatePanelContentHeight() {
   }
 }
 
+function logPanelEvent(
+  level: 'debug' | 'log' | 'warn' | 'error',
+  message: string,
+  details?: Record<string, string | number | boolean | null | undefined>,
+) {
+  const baseDetails = {
+    isOpen: isOpen.value,
+    sessionCount: islandState.value.sessionCount,
+    runningSessionCount: islandState.value.runningSessionCount,
+    activeSessionId: activeSession.value?.id ?? islandState.value.activeSessionId ?? null,
+  }
+
+  void islandLog[level](message, {
+    ...baseDetails,
+    ...details,
+  }).catch(() => {})
+}
+
 function getShellFrameSize() {
   const shellBounds = shellRef.value?.getBoundingClientRect()
 
@@ -354,6 +374,10 @@ function pulseOutline(generation: number) {
 
 async function openPanel() {
   const generation = startAnimationCycle()
+  logPanelEvent('log', 'panel open requested', {
+    panelContentHeight: panelContentHeight.value,
+    hasPendingApproval: hasPendingApproval.value,
+  })
   pulseOutline(generation)
 
   updatePanelContentHeight()
@@ -361,19 +385,24 @@ async function openPanel() {
   void syncMeasuredFrame(generation)
 }
 
-function closePanel() {
+function closePanel(reason = 'manual') {
   if (!isOpen.value) {
     return
   }
 
+  logPanelEvent('log', 'panel close requested', { reason })
   const generation = startAnimationCycle()
   isOpen.value = false
   void syncMeasuredFrame(generation)
 }
 
 async function togglePanel() {
+  logPanelEvent('debug', 'panel toggle clicked', {
+    nextAction: panelVisible.value ? 'close' : 'open',
+  })
+
   if (panelVisible.value) {
-    closePanel()
+    closePanel('toggle')
     return
   }
 
@@ -381,18 +410,25 @@ async function togglePanel() {
 }
 
 async function handleApprovalResponse(response: 'allow' | 'deny') {
+  logPanelEvent('log', 'approval response sent', { response })
   await respondApproval(response)
-  closePanel()
+  closePanel('approval-response')
 }
 
 async function handleOpenWorkspace() {
-  closePanel()
+  logPanelEvent('log', 'open workspace requested')
+  closePanel('open-workspace')
   await openWorkspace()
 }
 
 async function handleOpenSession(session: ElectronWorkspaceTerminalSession) {
+  logPanelEvent('log', 'open session requested', {
+    sessionId: session.id,
+    profile: session.profile ?? 'unknown',
+    cwd: session.cwd,
+  })
   displaySessionId.value = session.id
-  closePanel()
+  closePanel('open-session')
   await openWorkspace({
     sessionId: session.id,
     variant: session.profile,
@@ -400,7 +436,8 @@ async function handleOpenSession(session: ElectronWorkspaceTerminalSession) {
 }
 
 async function handleCreateSession(profile: ElectronWorkspaceCliProfile) {
-  closePanel()
+  logPanelEvent('log', 'create session requested', { profile })
+  closePanel('create-session')
   await openWorkspace({
     variant: profile,
     createSession: true,
@@ -408,12 +445,14 @@ async function handleCreateSession(profile: ElectronWorkspaceCliProfile) {
 }
 
 function handleWindowBlur() {
-  closePanel()
+  logPanelEvent('debug', 'window blur received')
+  closePanel('window-blur')
 }
 
 function handleWindowKeydown(event: KeyboardEvent) {
   if (event.key === 'Escape') {
-    closePanel()
+    logPanelEvent('debug', 'escape pressed')
+    closePanel('escape')
   }
 }
 

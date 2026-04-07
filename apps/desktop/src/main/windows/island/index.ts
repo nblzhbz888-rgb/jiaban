@@ -7,6 +7,7 @@ import type { IslandStateStore } from './state'
 
 import { join, resolve } from 'node:path'
 
+import { useLogg } from '@guiiai/logg'
 import { BrowserWindow as ElectronBrowserWindow, screen, shell } from 'electron'
 import { isMacOS } from 'std-env'
 
@@ -50,6 +51,7 @@ export function setupIslandWindowReusableFunc(params: {
   i18n: I18n
   serverChannel: ServerChannel
 }): IslandWindowManager {
+  const log = useLogg('main/windows/island').useGlobalConfig()
   const reusable = createReusableWindow(async () => {
     const bounds = createIslandBounds()
     const window = new ElectronBrowserWindow({
@@ -63,6 +65,7 @@ export function setupIslandWindowReusableFunc(params: {
       skipTaskbar: true,
       movable: false,
       alwaysOnTop: true,
+      acceptFirstMouse: true,
       transparent: true,
       frame: false,
       hasShadow: false,
@@ -89,18 +92,29 @@ export function setupIslandWindowReusableFunc(params: {
     }
 
     window.on('ready-to-show', () => {
+      log.withFields({ bounds: window.getBounds() }).log('island window ready to show')
       recenterWindow()
       window.show()
     })
 
-    window.on('show', recenterWindow)
-    window.on('focus', recenterWindow)
+    window.on('show', () => {
+      log.withFields({ bounds: window.getBounds() }).debug('island window shown')
+      recenterWindow()
+    })
+    window.on('focus', () => {
+      log.withFields({ bounds: window.getBounds() }).debug('island window focused')
+      recenterWindow()
+    })
+    window.on('blur', () => {
+      log.debug('island window blurred')
+    })
 
     screen.on('display-added', recenterWindow)
     screen.on('display-removed', recenterWindow)
     screen.on('display-metrics-changed', recenterWindow)
 
     window.on('closed', () => {
+      log.log('island window closed')
       screen.off('display-added', recenterWindow)
       screen.off('display-removed', recenterWindow)
       screen.off('display-metrics-changed', recenterWindow)
@@ -125,6 +139,7 @@ export function setupIslandWindowReusableFunc(params: {
   })
 
   async function openWindow() {
+    log.log('island window open requested')
     toggleWindowShow(await reusable.getWindow())
   }
 

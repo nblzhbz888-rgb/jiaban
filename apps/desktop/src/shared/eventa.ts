@@ -163,6 +163,15 @@ export interface ElectronDashboardPresentationState {
   activeSessionId: string | null
 }
 
+export type ElectronRendererLogLevel = 'debug' | 'log' | 'warn' | 'error'
+
+export interface ElectronRendererLogPayload {
+  scope: string
+  level?: ElectronRendererLogLevel
+  message: string
+  details?: Record<string, string | number | boolean | null | undefined>
+}
+
 export interface ElectronDashboardOpenPayload {
   sessionId?: string | null
   variant?: ElectronWorkspaceCliProfile | null
@@ -232,6 +241,7 @@ export const electronGetWindowLifecycleState = defineInvokeEventa<ElectronWindow
 export const electronWindowSetAlwaysOnTop = defineInvokeEventa<void, boolean>('eventa:invoke:electron:window:set-always-on-top')
 export const electronAppOpenUserDataFolder = defineInvokeEventa<{ path: string }>('eventa:invoke:electron:app:open-user-data-folder')
 export const electronAppQuit = defineInvokeEventa<void>('eventa:invoke:electron:app:quit')
+export const electronAppWriteLogEntry = defineInvokeEventa<void, ElectronRendererLogPayload>('eventa:invoke:electron:app:write-log-entry')
 
 export const i18nSetLocale = defineInvokeEventa<void, Locale>('eventa:invoke:electron:i18n:set-locale')
 export const i18nGetLocale = defineInvokeEventa<Locale>('eventa:invoke:electron:i18n:get-locale')

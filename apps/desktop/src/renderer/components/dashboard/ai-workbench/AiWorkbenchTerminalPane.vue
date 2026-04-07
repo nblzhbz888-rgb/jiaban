@@ -6,7 +6,7 @@ import type { WorkbenchVariant } from './models'
 
 import { useElectronEventaContext, useElectronEventaInvoke } from '@jiaban/electron-vueuse'
 import { errorMessageFrom } from '@moeru/std'
-import { useDebounceFn, useResizeObserver } from '@vueuse/core'
+import { useDebounceFn, useEventListener, useResizeObserver } from '@vueuse/core'
 import { DropdownMenuContent, DropdownMenuItem, DropdownMenuPortal, DropdownMenuRoot, DropdownMenuTrigger } from 'reka-ui'
 import { computed, nextTick, onMounted, onUnmounted, reactive, shallowRef, useTemplateRef, watch } from 'vue'
 
@@ -74,6 +74,9 @@ const resizeTerminal = useElectronEventaInvoke(electronWorkspaceResizeTerminal)
 const terminalBodyRef = useTemplateRef<HTMLDivElement>('terminalBody')
 const terminalOutputCleanup = shallowRef<(() => void) | null>(null)
 const pendingTerminalCommand = shallowRef<string | null>(null)
+const isQuickActionMenuOpen = shallowRef(false)
+const quickActionTriggerElement = shallowRef<HTMLElement | null>(null)
+const quickActionMenuContentElement = shallowRef<HTMLElement | null>(null)
 const controllerErrorMessages = reactive<Record<string, string>>({})
 const controllerStatusLabels = reactive<Record<string, string>>({})
 const terminalControllers = new Map<string, SessionTerminalController>()
@@ -497,6 +500,7 @@ async function ensureControllerInitialized(sessionId: string, options?: { focus?
 }
 
 async function runQuickAction(action: TerminalQuickAction) {
+  isQuickActionMenuOpen.value = false
   pendingTerminalCommand.value = action.command
 
   if (currentSessionSummary.value?.status === 'running' && currentSessionId.value) {
@@ -632,6 +636,52 @@ function registerSessionViewport(
   }
 }
 
+function resolveElementReference(element: Element | ComponentPublicInstance | null) {
+  return element instanceof HTMLElement
+    ? element
+    : element && '$el' in element && element.$el instanceof HTMLElement
+      ? element.$el
+      : null
+}
+
+function registerQuickActionTrigger(
+  element: Element | ComponentPublicInstance | null,
+) {
+  quickActionTriggerElement.value = resolveElementReference(element)
+}
+
+function registerQuickActionMenuContent(
+  element: Element | ComponentPublicInstance | null,
+) {
+  quickActionMenuContentElement.value = resolveElementReference(element)
+}
+
+function closeQuickActionMenu() {
+  isQuickActionMenuOpen.value = false
+}
+
+function handleQuickActionPointerDown(event: PointerEvent) {
+  if (!isQuickActionMenuOpen.value) {
+    return
+  }
+
+  const target = event.target
+  if (!(target instanceof Node)) {
+    closeQuickActionMenu()
+    return
+  }
+
+  if (quickActionTriggerElement.value?.contains(target)) {
+    return
+  }
+
+  if (quickActionMenuContentElement.value?.contains(target)) {
+    return
+  }
+
+  closeQuickActionMenu()
+}
+
 function disposeController(sessionId: string) {
   const controller = terminalControllers.get(sessionId)
   if (!controller) {
@@ -676,6 +726,14 @@ const fitAllControllersDebounced = useDebounceFn(() => {
 useResizeObserver(terminalBodyRef, () => {
   fitAllControllersDebounced()
 })
+
+useEventListener(document, 'pointerdown', handleQuickActionPointerDown, { capture: true })
+useEventListener(document, 'keydown', (event) => {
+  if (event.key === 'Escape') {
+    closeQuickActionMenu()
+  }
+})
+useEventListener(window, 'blur', closeQuickActionMenu)
 
 onMounted(async () => {
   terminalOutputCleanup.value = context.value.on(electronWorkspaceTerminalOutput, (event) => {
@@ -746,9 +804,13 @@ onUnmounted(() => {
           输入 <code class="terminal-code">/model</code> 切换模型
         </span>
 
-        <DropdownMenuRoot v-if="terminalQuickActions.length > 0">
+        <DropdownMenuRoot
+          v-if="terminalQuickActions.length > 0"
+          v-model:open="isQuickActionMenuOpen"
+        >
           <DropdownMenuTrigger as-child>
             <button
+              :ref="registerQuickActionTrigger"
               class="terminal-action-btn"
               type="button"
               title="快捷输入"
@@ -759,12 +821,14 @@ onUnmounted(() => {
           </DropdownMenuTrigger>
           <DropdownMenuPortal>
             <DropdownMenuContent
+              :ref="registerQuickActionMenuContent"
               align="end"
               :side-offset="8"
               :class="[
                 'terminal-quick-menu z-50 w-[320px] max-h-[min(70vh,560px)] overflow-y-auto rounded-xl border border-neutral-200 bg-white p-1 shadow-xl',
                 'dark:border-neutral-700 dark:bg-neutral-900',
               ]"
+              @escape-key-down="closeQuickActionMenu"
             >
               <DropdownMenuItem
                 v-for="action in terminalQuickActions"
