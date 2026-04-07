@@ -1,0 +1,30 @@
+{
+  "name": "@jiaban/font-cjkfonts-allseto",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Essential CSS for font, cjkfonts 全瀨體, used by Jiaban",
+  "author": {
+    "name": "Creators of cjkFonts",
+    "url": "https://cjkfonts.io/"
+  },
+  "license": "SIL Open Font License",
+  "homepage": "https://cjkfonts.io/blog/cjkfonts_allseto",
+  "exports": {
+    ".": {
+      "default": "./dist/index.css"
+    },
+    "./index.css": {
+      "default": "./dist/index.css"
+    },
+    "./files/*": {
+      "default": "./dist/files/*"
+    },
+    "./files/*.ttf": {
+      "default": "./dist/files/*.ttf"
+    }
+  },
+  "scripts": {
+    "dev": "pnpm run build",
+    "build": "tsdown"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "@jiaban/ui",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "A collection of UI components that used by Jiaban",
+  "author": {
+    "name": "梁宗靖"
+  },
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./components/animations": "./src/components/animations/index.ts",
+    "./components/form": "./src/components/form/index.ts",
+    "./components/layouts": "./src/components/layouts/index.ts",
+    "./*": "./*"
+  },
+  "scripts": {
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@vueuse/core": "^14.2.1",
+    "floating-vue": "^5.2.2",
+    "reka-ui": "^2.9.2",
+    "vue": "catalog:"
+  },
+  "devDependencies": {
+    "@vue-macros/volar": "3.0.0-beta.8",
+    "vue-tsc": "^3.2.6"
+  }
+}

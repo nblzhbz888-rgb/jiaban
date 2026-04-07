@@ -1,0 +1,44 @@
+{
+  "name": "@jiaban/server-runtime",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Server runtime implementation for Jiaban running in different environments",
+  "author": {
+    "name": "梁宗靖"
+  },
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./server": {
+      "types": "./dist/server.d.mts",
+      "default": "./dist/server.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "bin": "./dist/bin/run.mjs",
+  "files": [
+    "README.md",
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "tsx ./src/bin/run.js",
+    "start": "tsx ./src/bin/run.js",
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@guiiai/logg": "catalog:",
+    "@jiaban/server-shared": "workspace:^",
+    "@moeru/std": "catalog:",
+    "crossws": "^0.4.4",
+    "h3": "^2.0.1-rc.19",
+    "nanoid": "catalog:",
+    "srvx": "^0.11.13",
+    "superjson": "catalog:"
+  }
+}

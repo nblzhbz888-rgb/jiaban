@@ -1,0 +1,41 @@
+{
+  "name": "@jiaban/electron-vueuse",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "VueUse-like composables and helpers for Electron apps",
+  "author": {
+    "name": "梁宗靖"
+  },
+  "license": "MIT",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./main": "./dist/main/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/index.d.mts",
+  "files": [
+    "README.md",
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "pnpm run build",
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "electron": ">=39 <41",
+    "vue": ">=3"
+  },
+  "dependencies": {
+    "@moeru/eventa": "catalog:",
+    "@moeru/std": "catalog:",
+    "@vueuse/core": "catalog:",
+    "es-toolkit": "catalog:",
+    "std-env": "catalog:"
+  },
+  "devDependencies": {
+    "@jiaban/electron-eventa": "workspace:^"
+  }
+}

@@ -1,0 +1,133 @@
+catalogMode: prefer
+shellEmulator: true
+packages:
+  - packages/**
+  - apps/desktop
+  - '!**/dist/**'
+overrides:
+  array-flatten: npm:@nolyfill/array-flatten@^1.0.44
+  axios: npm:feaxios@^0.0.23
+  is-core-module: npm:@nolyfill/is-core-module@^1.0.39
+  isarray: npm:@nolyfill/isarray@^1.0.44
+  onnxruntime-web: npm:onnxruntime-web@^1.24.3
+  safe-buffer: npm:@nolyfill/safe-buffer@^1.0.44
+  safer-buffer: npm:@nolyfill/safer-buffer@^1.0.44
+  side-channel: npm:@nolyfill/side-channel@^1.0.44
+  string.prototype.matchall: npm:@nolyfill/string.prototype.matchall@^1.0.44
+patchedDependencies:
+  srvx: patches/srvx.patch
+catalog:
+  '@electron/notarize': ^3.1.1
+  '@guiiai/logg': ^1.2.11
+  '@intlify/core': ^11.3.0
+  '@modelcontextprotocol/sdk': ^1.27.1
+  '@moeru/eslint-config': 0.1.0-beta.15
+  '@moeru/eventa': 1.0.0-beta.3
+  '@moeru/std': 0.1.0-beta.17
+  '@types/audioworklet': ^0.0.97
+  '@vueuse/core': 14.1.0
+  '@xsai-ext/providers': ^0.4.4
+  '@xsai/generate-speech': 0.4.0-beta.13
+  '@xsai/generate-text': ^0.4.4
+  '@xsai/model': ^0.4.4
+  '@xsai/shared': 0.4.0-beta.13
+  '@xsai/shared-chat': 0.4.0-beta.13
+  '@xsai/stream-text': ^0.4.4
+  '@xsai/tool': ^0.4.4
+  '@xsai/utils-chat': 0.4.0-beta.13
+  '@xterm/addon-fit': ^0.11.0
+  alien-signals: ^3.1.2
+  async-mutex: 0.5.0
+  builder-util-runtime: ^9.5.1
+  d3: 7.9.0
+  drizzle-orm: ^0.45.1
+  electron: ^40.8.3
+  es-toolkit: 1.43.0
+  injeca: ^0.1.8
+  knip: ^6.0.4
+  mkcert: ^3.2.0
+  monaco-editor: ^0.55.1
+  nano-staged: ^0.9.0
+  nanoid: 5.1.6
+  node-pty: ^1.1.0
+  oxc-minify: ^0.121.0
+  posthog-js: 1.306.1
+  std-env: ^4.0.0
+  superjson: ^2.2.6
+  tsdown: ^0.21.4
+  vite: ^8.0.2
+  vite-plugin-inspect: ^11.3.3
+  vue: ^3.5.30
+  vue-sonner: 2.0.9
+  xsschema: 0.4.0-beta.13
+  xterm: ^5.3.0
+catalogs:
+  vitest:
+    '@vitest/coverage-v8': ^4.1.1
+  xsai:
+    unspeech: ^0.1.11
+
+ignoredBuiltDependencies:
+  - '@prisma/client'
+  - better-sqlite3
+  - simple-git-hooks # [workaround] postinstall script bundled in simple-git-hooks fails to execute with `enableGlobalVirtualStore: true`. Using local postinstall script to run `npx simple-git-hooks` instead.
+
+onlyBuiltDependencies:
+  - '@discordjs/opus'
+  - '@ffmpeg-installer/darwin-arm64'
+  - '@ffmpeg-installer/linux-x64'
+  - '@napi-rs/image'
+  - '@parcel/watcher'
+  - bufferutil
+  - canvas
+  - core-js
+  - electron
+  - electron-click-drag-plugin
+  - electron-winstaller
+  - es5-ext
+  - esbuild
+  - ffmpeg-static
+  - less
+  - msw
+  - node-pty
+  - onnxruntime-node
+  - protobufjs
+  - sharp
+  - spawn-sync
+  - utf-8-validate
+  - vue-demi
+packageExtensions:
+  '@formkit/auto-animate':
+    peerDependencies:
+      vue: '*'
+  '@huggingface/transformers':
+    optionalDependencies:
+      'onnxruntime-common': '*'
+  '@intlify/unplugin-vue-i18n':
+    peerDependencies:
+      vite: '*'
+  '@masknet/eslint-plugin':
+    peerDependencies:
+      typescript: '*'
+  '@pixiv/three-vrm-animation':
+    peerDependencies:
+      '@types/three': '*'
+  '@pixiv/three-vrm-core':
+    peerDependencies:
+      '@types/three': '*'
+  '@pmndrs/pointer-events':
+    peerDependencies:
+      three: '*'
+  '@tresjs/core':
+    peerDependencies:
+      '@types/three': '*'
+  '@unocss/eslint-plugin':
+    peerDependencies:
+      '@typescript-eslint/types': '*'
+  'vitepress':
+    peerDependencies:
+      vite: '*'
+      vue: '*'
+  'vue-sonner':
+    peerDependencies:
+      vue: '^3.2.0'

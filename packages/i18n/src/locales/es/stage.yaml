@@ -1,0 +1,44 @@
+chat:
+  message:
+    character-name:
+      overtimeTogether: Jiaban
+      core-system: Sistema Central
+      you: Tu
+  reasoning: Razonamiento
+message: Dile algo...
+send-mode:
+  title: Send key
+  enter: Enter
+  ctrl-enter: Ctrl + Enter
+  double-enter: Double Enter
+operations:
+  load-models: Cargar Modelos
+  load-models-status:
+    loading: Cargando
+    ready: Listo
+select-a-audio-input: Selecciona una entrada de audio
+select-a-model: Seleccionar Modelo
+select-a-voice: Elige una voz
+viewers:
+  debug-menu:
+    emotions: Emociones
+    emotions-btn:
+      angry: '😠 Enojado'
+      awkward: '😳 Torpe'
+      happy: '😄 Feliz'
+      neutral: '🙂 Neutro'
+      question: '🤔 Pregunta'
+      sad: '😫 Triste'
+      surprised: '🤯 Sorprendido'
+      think: '🤨 Pensar'
+    vrm:
+      camera: Cámara
+      model:
+        title: Modelo
+profile-switcher:
+  no-profile: Sin Perfil
+  no-profiles: Aún no hay perfiles
+  save-as-new: Guardar como Nuevo Perfil
+  new-profile-name: Nombre del perfil
+  manage: Administrar Perfiles
+waiting: Esperando...

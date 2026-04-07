@@ -1,0 +1,78 @@
+{
+  "name": "@jiaban/root",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.32.1",
+  "description": "Jiaban desktop workspace",
+  "author": {
+    "name": "梁宗靖"
+  },
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "pnpm exec simple-git-hooks && pnpm run build:packages",
+    "dev": "pnpm --dir apps/desktop dev",
+    "dev:desktop": "pnpm --dir apps/desktop dev",
+    "dev:packages": "pnpm -rF=\"./packages/*\" --parallel run dev",
+    "build": "pnpm --dir apps/desktop app:build",
+    "build:desktop": "pnpm --dir apps/desktop app:build",
+    "build:packages": "turbo run build -F=\"./packages/*\"",
+    "test": "vitest --coverage",
+    "test:run": "vitest run",
+    "lint": "moeru-lint .",
+    "lint:fix": "moeru-lint --fix .",
+    "typecheck": "pnpm -rF=\"./packages/*\" -F=\"./apps/desktop\" --parallel typecheck",
+    "up": "taze -w -r -I && pnpm prune && pnpm dedupe",
+    "knip": "knip"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^7.7.3",
+    "@arethetypeswrong/core": "^0.18.2",
+    "@electron-toolkit/eslint-config-ts": "^3.1.0",
+    "@moeru/eslint-config": "catalog:",
+    "@types/node": "^24.12.0",
+    "@unocss/eslint-config": "^66.6.7",
+    "@unocss/eslint-plugin": "^66.6.7",
+    "@unocss/preset-mini": "^66.6.7",
+    "@unocss/preset-web-fonts": "^66.6.7",
+    "@vitest/coverage-v8": "catalog:vitest",
+    "bumpp": "^11.0.1",
+    "eslint": "^10.1.0",
+    "eslint-plugin-oxlint": "^1.56.0",
+    "knip": "catalog:",
+    "nano-staged": "catalog:",
+    "oxc-minify": "catalog:",
+    "oxlint": "^1.56.0",
+    "posthog-js": "catalog:",
+    "publint": "^0.3.18",
+    "rollup": "^4.60.0",
+    "simple-git-hooks": "^2.13.1",
+    "smol-toml": "^1.6.1",
+    "taze": "^19.10.0",
+    "tinyexec": "^1.0.4",
+    "tsdown": "catalog:",
+    "tsx": "^4.21.0",
+    "turbo": "^2.8.20",
+    "typescript": "^5.9.3",
+    "uncrypto": "^0.1.3",
+    "unocss": "^66.6.7",
+    "unocss-preset-scrollbar": "^4.0.0",
+    "unplugin-lightningcss": "^0.4.5",
+    "unplugin-raw": "^0.6.4",
+    "unplugin-unused": "^0.5.7",
+    "vite": "^8.0.2",
+    "vite-plugin-inspect": "catalog:",
+    "vitest": "^4.1.1",
+    "yaml": "^2.8.3"
+  },
+  "workspaces": [
+    "packages/**",
+    "apps/desktop"
+  ],
+  "simple-git-hooks": {
+    "pre-commit": "pnpm nano-staged"
+  },
+  "nano-staged": {
+    "*": "moeru-lint --fix"
+  }
+}
