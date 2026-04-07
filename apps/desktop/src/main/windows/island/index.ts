@@ -53,7 +53,7 @@ export function setupIslandWindowReusableFunc(params: {
   const reusable = createReusableWindow(async () => {
     const bounds = createIslandBounds()
     const window = new ElectronBrowserWindow({
-      title: 'Happy Code',
+      title: 'Jiaban',
       ...bounds,
       show: false,
       resizable: false,

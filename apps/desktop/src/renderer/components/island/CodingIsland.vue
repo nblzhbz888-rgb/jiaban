@@ -120,7 +120,7 @@ const componentStyleVars = computed(() => ({
   '--island-shell-height': `${shellHeight.value}px`,
 }))
 
-const projectLabel = computed(() => islandState.value.projectName || 'Happy Code')
+const projectLabel = computed(() => islandState.value.projectName || 'Jiaban')
 const compactProjectLabel = computed(() => {
   const firstToken = projectLabel.value.split(PROFILE_LABEL_SPLIT_RE)[0]
   return firstToken || projectLabel.value || 'Happy'

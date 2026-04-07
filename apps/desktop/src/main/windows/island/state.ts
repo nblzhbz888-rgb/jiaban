@@ -4,7 +4,7 @@ import { basename } from 'node:path'
 
 function getProjectName(rootPath: string) {
   if (!rootPath) {
-    return 'Happy Code'
+    return 'Jiaban'
   }
 
   return basename(rootPath) || rootPath
@@ -32,7 +32,7 @@ export function createDefaultIslandState(rootPath = ''): ElectronIslandState {
     runningSessionCount: 0,
     status: 'idle',
     updatedAt: Date.now(),
-    modelName: 'Happy Code',
+    modelName: 'Jiaban',
   })
 }
 

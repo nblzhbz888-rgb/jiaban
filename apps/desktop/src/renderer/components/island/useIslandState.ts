@@ -14,14 +14,14 @@ import {
 
 function createDefaultIslandState(): ElectronIslandState {
   return {
-    projectName: 'Happy Code',
+    projectName: 'Jiaban',
     rootPath: '',
     activeProfile: null,
     sessionCount: 0,
     runningSessionCount: 0,
     status: 'idle',
     updatedAt: Date.now(),
-    modelName: 'Happy Code',
+    modelName: 'Jiaban',
   }
 }
 
@@ -49,7 +49,7 @@ export function useIslandState() {
     if (islandState.value.activeProfile === 'codex') {
       return 'Codex'
     }
-    return 'Happy Code'
+    return 'Jiaban'
   })
   const sessionLabel = computed(() => {
     if (islandState.value.sessionCount === 0) {

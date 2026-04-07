@@ -46,7 +46,7 @@ type AppConfig = InferOutput<typeof appConfigSchema>
 type DashboardWorkspaceService = Awaited<ReturnType<typeof createDashboardWorkspaceService>>
 
 const DASHBOARD_WORKSPACE_TAG = 'dashboard-workspace'
-const DASHBOARD_WORKSPACE_TITLE = 'Happy Code Workspace'
+const DASHBOARD_WORKSPACE_TITLE = 'Jiaban Workspace'
 const DASHBOARD_WINDOW_BACKGROUND = '#090c13'
 
 function clamp(value: number, min: number, max: number) {
