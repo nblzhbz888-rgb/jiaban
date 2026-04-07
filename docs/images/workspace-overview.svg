@@ -1,0 +1,71 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1440" height="900" rx="28" fill="#090B12"/>
+  <rect x="24" y="24" width="220" height="54" rx="18" fill="#1A1D27"/>
+  <rect x="40" y="38" width="70" height="26" rx="13" fill="#3A4362"/>
+  <text x="75" y="55" fill="#C9D6FF" font-size="15" text-anchor="middle" font-family="SF Pro Display, PingFang SC, Arial">Codex</text>
+  <text x="126" y="56" fill="#F5F7FF" font-size="20" font-family="SF Pro Display, PingFang SC, Arial">jiaban</text>
+  <text x="192" y="56" fill="#8BE28D" font-size="20" font-family="SF Mono, Menlo, monospace">running</text>
+  <rect x="262" y="24" width="240" height="54" rx="18" fill="#1A1D27"/>
+  <rect x="278" y="38" width="84" height="26" rx="13" fill="#49382B"/>
+  <text x="320" y="55" fill="#FFD6A6" font-size="15" text-anchor="middle" font-family="SF Pro Display, PingFang SC, Arial">Claude</text>
+  <text x="382" y="56" fill="#F5F7FF" font-size="20" font-family="SF Pro Display, PingFang SC, Arial">jiaban</text>
+  <text x="448" y="56" fill="#8BE28D" font-size="20" font-family="SF Mono, Menlo, monospace">running</text>
+
+  <circle cx="58" cy="144" r="11" fill="#FF615A"/>
+  <circle cx="88" cy="144" r="11" fill="#F5BE4F"/>
+  <circle cx="118" cy="144" r="11" fill="#27C93F"/>
+
+  <rect x="148" y="123" width="106" height="42" rx="21" fill="#2B2D36"/>
+  <text x="201" y="149" fill="#F4F7FF" font-size="19" text-anchor="middle" font-family="SF Mono, Menlo, monospace">Terminal</text>
+  <rect x="262" y="123" width="74" height="42" rx="21" fill="#1D202A"/>
+  <text x="299" y="149" fill="#9EA7C3" font-size="19" text-anchor="middle" font-family="SF Mono, Menlo, monospace">Code</text>
+
+  <text x="360" y="135" fill="#F6F8FF" font-size="34" font-weight="700" font-family="SF Pro Display, PingFang SC, Arial">jiaban</text>
+  <text x="360" y="170" fill="#8E97B4" font-size="20" font-family="SF Mono, Menlo, monospace">/Users/nblzhbz163.com/jiabansoul/jiaban</text>
+
+  <rect x="940" y="112" width="110" height="42" rx="21" fill="#1B1E28"/>
+  <text x="995" y="139" fill="#E6EBFF" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">切换目录</text>
+  <rect x="1062" y="112" width="82" height="42" rx="21" fill="#1B1E28"/>
+  <text x="1103" y="139" fill="#E6EBFF" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">环境</text>
+  <rect x="1154" y="112" width="62" height="42" rx="21" fill="#1B1E28"/>
+  <text x="1185" y="139" fill="#E6EBFF" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">CLI</text>
+  <rect x="1226" y="112" width="62" height="42" rx="21" fill="#1B1E28"/>
+  <text x="1257" y="139" fill="#E6EBFF" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">API</text>
+  <rect x="1298" y="112" width="118" height="42" rx="21" fill="#311F28"/>
+  <text x="1357" y="139" fill="#FFD7DF" font-size="18" text-anchor="middle" font-family="SF Mono, Menlo, monospace">Delete Session</text>
+
+  <rect x="22" y="204" width="1396" height="674" rx="26" fill="#0E111A" stroke="#222532"/>
+  <rect x="32" y="282" width="882" height="580" rx="20" fill="#111111"/>
+  <rect x="32" y="204" width="882" height="72" rx="20" fill="#11131D"/>
+  <text x="56" y="245" fill="#E3E9FF" font-size="24" font-weight="600" font-family="SF Pro Display, PingFang SC, Arial">Codex Shell</text>
+  <text x="192" y="245" fill="#95A1C4" font-size="18" font-family="SF Pro Display, PingFang SC, Arial">Codex · zsh · 运行中</text>
+
+  <rect x="952" y="112" width="454" height="724" rx="36" fill="#0F111A" stroke="#232633"/>
+  <text x="976" y="148" fill="#F6F8FF" font-size="36" font-weight="700" font-family="PingFang SC, Arial">API 配置</text>
+  <rect x="1228" y="128" width="120" height="40" rx="14" fill="#F0F4FF"/>
+  <text x="1288" y="154" fill="#141826" font-size="18" font-weight="700" text-anchor="middle" font-family="PingFang SC, Arial">保存配置</text>
+
+  <rect x="976" y="244" width="146" height="36" rx="18" fill="#273246"/>
+  <text x="1049" y="267" fill="#F0F5FF" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">Claude Code</text>
+  <rect x="976" y="304" width="88" height="38" rx="12" fill="#292B34"/>
+  <text x="1020" y="329" fill="#F6C17B" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">订阅</text>
+  <rect x="1074" y="304" width="88" height="38" rx="12" fill="#1F222C"/>
+  <text x="1118" y="329" fill="#C6CDE2" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">API Key</text>
+  <rect x="1172" y="304" width="104" height="38" rx="12" fill="#1F222C"/>
+  <text x="1224" y="329" fill="#C6CDE2" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">中转 API</text>
+
+  <rect x="976" y="496" width="94" height="36" rx="18" fill="#273246"/>
+  <text x="1023" y="519" fill="#F0F5FF" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">Codex</text>
+  <rect x="976" y="556" width="88" height="38" rx="12" fill="#203751"/>
+  <text x="1020" y="581" fill="#60AFFF" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">API Key</text>
+  <rect x="1074" y="556" width="88" height="38" rx="12" fill="#1F222C"/>
+  <text x="1118" y="581" fill="#C6CDE2" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">中转 API</text>
+
+  <text x="56" y="326" fill="#FFFFFF" font-size="26" font-family="SF Mono, Menlo, monospace">[workspace] codex mode=api-key baseUrl=(default)</text>
+  <text x="56" y="378" fill="#FFFFFF" font-size="24" font-family="SF Mono, Menlo, monospace">OpenAI Codex  (v0.117.0)</text>
+  <text x="56" y="430" fill="#E8EDF9" font-size="22" font-family="SF Mono, Menlo, monospace">model:    gpt-5.4-mini    /model to change</text>
+  <text x="56" y="472" fill="#AEB8D1" font-size="22" font-family="SF Mono, Menlo, monospace">directory: ~/jiabansoul/jiaban</text>
+  <rect x="32" y="677" width="882" height="82" fill="#262626"/>
+  <text x="56" y="734" fill="#FFFFFF" font-size="28" font-family="SF Mono, Menlo, monospace">Summarize recent commits</text>
+  <text x="56" y="804" fill="#9BA6C5" font-size="22" font-family="SF Mono, Menlo, monospace">gpt-5.4-mini default · 100% left · ~/jiabansoul/jiaban</text>
+</svg>

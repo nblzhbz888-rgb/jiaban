@@ -1,0 +1,62 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1440" height="900" rx="28" fill="#090B12"/>
+  <rect x="24" y="24" width="240" height="54" rx="18" fill="#1A1D27"/>
+  <rect x="40" y="38" width="84" height="26" rx="13" fill="#49382B"/>
+  <text x="82" y="55" fill="#FFD6A6" font-size="15" text-anchor="middle" font-family="SF Pro Display, PingFang SC, Arial">Claude</text>
+  <text x="144" y="56" fill="#F5F7FF" font-size="20" font-family="SF Pro Display, PingFang SC, Arial">jiaban</text>
+  <text x="210" y="56" fill="#8BE28D" font-size="20" font-family="SF Mono, Menlo, monospace">running</text>
+
+  <circle cx="58" cy="144" r="11" fill="#FF615A"/>
+  <circle cx="88" cy="144" r="11" fill="#F5BE4F"/>
+  <circle cx="118" cy="144" r="11" fill="#27C93F"/>
+
+  <rect x="148" y="123" width="106" height="42" rx="21" fill="#2B2D36"/>
+  <text x="201" y="149" fill="#F4F7FF" font-size="19" text-anchor="middle" font-family="SF Mono, Menlo, monospace">Terminal</text>
+  <rect x="262" y="123" width="74" height="42" rx="21" fill="#1D202A"/>
+  <text x="299" y="149" fill="#9EA7C3" font-size="19" text-anchor="middle" font-family="SF Mono, Menlo, monospace">Code</text>
+
+  <text x="360" y="135" fill="#F6F8FF" font-size="34" font-weight="700" font-family="SF Pro Display, PingFang SC, Arial">jiaban</text>
+  <text x="360" y="170" fill="#8E97B4" font-size="20" font-family="SF Mono, Menlo, monospace">/Users/nblzhbz163.com/jiabansoul/jiaban</text>
+
+  <rect x="22" y="204" width="1396" height="674" rx="26" fill="#0E111A" stroke="#222532"/>
+  <rect x="32" y="204" width="882" height="72" rx="20" fill="#11131D"/>
+  <text x="56" y="245" fill="#E3E9FF" font-size="24" font-weight="600" font-family="SF Pro Display, PingFang SC, Arial">Claude Shell</text>
+  <text x="208" y="245" fill="#95A1C4" font-size="18" font-family="SF Pro Display, PingFang SC, Arial">Claude · zsh · 运行中</text>
+
+  <rect x="952" y="112" width="454" height="724" rx="36" fill="#0F111A" stroke="#232633"/>
+  <text x="976" y="148" fill="#F6F8FF" font-size="36" font-weight="700" font-family="PingFang SC, Arial">API 配置</text>
+  <rect x="1148" y="126" width="138" height="40" rx="14" fill="#4D3518"/>
+  <text x="1217" y="152" fill="#FFB856" font-size="18" font-weight="700" text-anchor="middle" font-family="PingFang SC, Arial">保存并重启</text>
+  <rect x="1298" y="126" width="120" height="40" rx="14" fill="#F0F4FF"/>
+  <text x="1358" y="152" fill="#141826" font-size="18" font-weight="700" text-anchor="middle" font-family="PingFang SC, Arial">保存配置</text>
+
+  <text x="976" y="200" fill="#8F9AB7" font-size="18" font-family="PingFang SC, Arial">配置会同步到主进程。保存后重启终端会话即可注入对应环境变量。</text>
+
+  <rect x="976" y="252" width="146" height="36" rx="18" fill="#273246"/>
+  <text x="1049" y="275" fill="#F0F5FF" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">Claude Code</text>
+  <rect x="976" y="312" width="88" height="38" rx="12" fill="#1F222C"/>
+  <text x="1020" y="337" fill="#C6CDE2" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">订阅</text>
+  <rect x="1074" y="312" width="88" height="38" rx="12" fill="#1F222C"/>
+  <text x="1118" y="337" fill="#C6CDE2" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">API Key</text>
+  <rect x="1172" y="312" width="104" height="38" rx="12" fill="#4D3518"/>
+  <text x="1224" y="337" fill="#FFB856" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">中转 API</text>
+  <text x="976" y="378" fill="#9DA8C5" font-size="18" font-family="PingFang SC, Arial">自定义 Base URL，兼容 Anthropic 格式的中转服务</text>
+
+  <text x="976" y="432" fill="#F6F8FF" font-size="20" font-weight="700" font-family="SF Pro Display, PingFang SC, Arial">API Key</text>
+  <rect x="976" y="448" width="330" height="40" rx="12" fill="#181B23" stroke="#2D3342"/>
+  <text x="998" y="474" fill="#49506A" font-size="18" font-family="SF Mono, Menlo, monospace">sk-ant-...</text>
+  <rect x="1312" y="448" width="58" height="40" rx="12" fill="#232936"/>
+  <text x="1341" y="474" fill="#F0F5FF" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">显示</text>
+
+  <text x="976" y="530" fill="#F6F8FF" font-size="20" font-weight="700" font-family="SF Pro Display, PingFang SC, Arial">Base URL</text>
+  <rect x="976" y="546" width="394" height="40" rx="12" fill="#181B23" stroke="#2D3342"/>
+  <text x="998" y="572" fill="#D8DFF2" font-size="18" font-family="SF Mono, Menlo, monospace">https://model.xuanxu.net/</text>
+  <text x="976" y="616" fill="#8F9AB7" font-size="17" font-family="PingFang SC, Arial">默认值为推荐中转地址。默认模型为 claude-sonnet-4-6。</text>
+
+  <rect x="976" y="674" width="94" height="36" rx="18" fill="#273246"/>
+  <text x="1023" y="697" fill="#F0F5FF" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">Codex</text>
+  <rect x="976" y="734" width="88" height="38" rx="12" fill="#203751"/>
+  <text x="1020" y="759" fill="#60AFFF" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">API Key</text>
+  <rect x="1074" y="734" width="88" height="38" rx="12" fill="#1F222C"/>
+  <text x="1118" y="759" fill="#C6CDE2" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">中转 API</text>
+</svg>

@@ -1,0 +1,53 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1440" height="900" rx="28" fill="#090B12"/>
+  <rect x="24" y="24" width="220" height="54" rx="18" fill="#1A1D27"/>
+  <rect x="40" y="38" width="70" height="26" rx="13" fill="#3A4362"/>
+  <text x="75" y="55" fill="#C9D6FF" font-size="15" text-anchor="middle" font-family="SF Pro Display, PingFang SC, Arial">Codex</text>
+  <text x="126" y="56" fill="#F5F7FF" font-size="20" font-family="SF Pro Display, PingFang SC, Arial">jiaban</text>
+  <text x="192" y="56" fill="#8BE28D" font-size="20" font-family="SF Mono, Menlo, monospace">running</text>
+
+  <rect x="262" y="24" width="240" height="54" rx="18" fill="#1A1D27"/>
+  <rect x="278" y="38" width="84" height="26" rx="13" fill="#49382B"/>
+  <text x="320" y="55" fill="#FFD6A6" font-size="15" text-anchor="middle" font-family="SF Pro Display, PingFang SC, Arial">Claude</text>
+  <text x="382" y="56" fill="#F5F7FF" font-size="20" font-family="SF Pro Display, PingFang SC, Arial">jiaban</text>
+  <text x="448" y="56" fill="#8BE28D" font-size="20" font-family="SF Mono, Menlo, monospace">running</text>
+
+  <circle cx="58" cy="144" r="11" fill="#FF615A"/>
+  <circle cx="88" cy="144" r="11" fill="#F5BE4F"/>
+  <circle cx="118" cy="144" r="11" fill="#27C93F"/>
+
+  <rect x="148" y="123" width="106" height="42" rx="21" fill="#2B2D36"/>
+  <text x="201" y="149" fill="#F4F7FF" font-size="19" text-anchor="middle" font-family="SF Mono, Menlo, monospace">Terminal</text>
+  <rect x="262" y="123" width="74" height="42" rx="21" fill="#1D202A"/>
+  <text x="299" y="149" fill="#9EA7C3" font-size="19" text-anchor="middle" font-family="SF Mono, Menlo, monospace">Code</text>
+
+  <text x="360" y="135" fill="#F6F8FF" font-size="34" font-weight="700" font-family="SF Pro Display, PingFang SC, Arial">jiaban</text>
+  <text x="360" y="170" fill="#8E97B4" font-size="20" font-family="SF Mono, Menlo, monospace">/Users/nblzhbz163.com/jiabansoul/jiaban</text>
+
+  <rect x="22" y="204" width="1396" height="674" rx="26" fill="#0E111A" stroke="#222532"/>
+  <rect x="32" y="204" width="1376" height="72" rx="20" fill="#11131D"/>
+  <text x="56" y="245" fill="#E3E9FF" font-size="24" font-weight="600" font-family="SF Pro Display, PingFang SC, Arial">Codex Shell</text>
+  <text x="192" y="245" fill="#95A1C4" font-size="18" font-family="SF Pro Display, PingFang SC, Arial">Codex · zsh · 运行中</text>
+
+  <rect x="1168" y="221" width="138" height="38" rx="12" fill="#1F222C"/>
+  <text x="1237" y="246" fill="#C6CDE2" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">快捷输入</text>
+  <rect x="1318" y="221" width="88" height="38" rx="12" fill="#2A2F3B"/>
+  <text x="1362" y="246" fill="#F0F5FF" font-size="18" text-anchor="middle" font-family="PingFang SC, Arial">新会话</text>
+
+  <rect x="32" y="282" width="1376" height="580" rx="20" fill="#111111"/>
+  <rect x="52" y="300" width="480" height="164" rx="12" fill="#191919" stroke="#E8EDF8"/>
+  <text x="72" y="338" fill="#A9F6FF" font-size="22" font-family="SF Mono, Menlo, monospace">Update available! 0.117.0 -&gt; 0.118.0</text>
+  <text x="72" y="372" fill="#FFFFFF" font-size="20" font-family="SF Mono, Menlo, monospace">Run npm install -g @openai/codex to update.</text>
+  <text x="72" y="426" fill="#FFFFFF" font-size="20" font-family="SF Mono, Menlo, monospace">See full release notes:</text>
+  <text x="72" y="456" fill="#4FC3F7" font-size="20" font-family="SF Mono, Menlo, monospace">https://github.com/openai/codex/releases/latest</text>
+
+  <rect x="52" y="520" width="420" height="136" rx="12" fill="#191919" stroke="#E8EDF8"/>
+  <text x="72" y="558" fill="#FFFFFF" font-size="24" font-family="SF Mono, Menlo, monospace">&gt;_ OpenAI Codex (v0.117.0)</text>
+  <text x="72" y="612" fill="#AEB8D1" font-size="22" font-family="SF Mono, Menlo, monospace">model:    gpt-5.4-mini</text>
+  <text x="72" y="644" fill="#AEB8D1" font-size="22" font-family="SF Mono, Menlo, monospace">directory: ~/jiabansoul/jiaban</text>
+
+  <text x="52" y="720" fill="#FFFFFF" font-size="24" font-family="SF Mono, Menlo, monospace">Tip: New Build faster with the Codex App.</text>
+  <rect x="32" y="744" width="1376" height="84" fill="#262626"/>
+  <text x="52" y="796" fill="#FFFFFF" font-size="28" font-family="SF Mono, Menlo, monospace">Summarize recent commits</text>
+  <text x="52" y="850" fill="#9BA6C5" font-size="22" font-family="SF Mono, Menlo, monospace">gpt-5.4-mini default · 100% left · ~/jiabansoul/jiaban</text>
+</svg>
