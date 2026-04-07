@@ -89,6 +89,12 @@ export default defineConfig({
     },
 
     optimizeDeps: {
+      include: [
+        '@moeru/std',
+        '@xterm/addon-fit',
+        'monaco-editor',
+        'xterm',
+      ],
       exclude: [
         // Static Assets: Models, Images, etc.
         'src/renderer/public/assets/*',
@@ -110,7 +116,7 @@ export default defineConfig({
         strict: false,
       },
       warmup: {
-        clientFiles: [resolve(join(import.meta.dirname, 'src', 'renderer', 'pages', '*.vue'))],
+        clientFiles: [resolve(join(import.meta.dirname, 'src', 'renderer', 'main.ts'))],
       },
     },
 

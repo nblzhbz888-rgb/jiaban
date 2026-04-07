@@ -982,33 +982,35 @@ onUnmounted(() => {
 
 <template>
   <div class="workbench-window">
-    <div v-if="sortedSessions.length > 0" class="workbench-window__session-strip">
-      <button
-        v-for="session in sortedSessions"
-        :key="session.id"
-        :class="[
-          'workbench-session-tab',
-          resolvedActiveSessionId === session.id ? 'workbench-session-tab--active' : '',
-          session.status !== 'running' ? 'workbench-session-tab--exited' : '',
-        ]"
-        type="button"
-        @click="handleSelectSession(session)"
-      >
-        <span
+    <div v-if="sortedSessions.length > 0" class="workbench-window__session-strip-clip">
+      <div class="workbench-window__session-strip">
+        <button
+          v-for="session in sortedSessions"
+          :key="session.id"
           :class="[
-            'workbench-session-tab__profile',
-            session.profile === 'codex' ? 'workbench-session-tab__profile--codex' : 'workbench-session-tab__profile--claude',
+            'workbench-session-tab',
+            resolvedActiveSessionId === session.id ? 'workbench-session-tab--active' : '',
+            session.status !== 'running' ? 'workbench-session-tab--exited' : '',
           ]"
+          type="button"
+          @click="handleSelectSession(session)"
         >
-          {{ getSessionTabProfileLabel(session) }}
-        </span>
-        <span class="workbench-session-tab__label">
-          {{ getSessionTabLabel(session) }}
-        </span>
-        <span class="workbench-session-tab__status">
-          {{ session.status === 'running' ? 'running' : `exited ${session.exitCode ?? 0}` }}
-        </span>
-      </button>
+          <span
+            :class="[
+              'workbench-session-tab__profile',
+              session.profile === 'codex' ? 'workbench-session-tab__profile--codex' : 'workbench-session-tab__profile--claude',
+            ]"
+          >
+            {{ getSessionTabProfileLabel(session) }}
+          </span>
+          <span class="workbench-session-tab__label">
+            {{ getSessionTabLabel(session) }}
+          </span>
+          <span class="workbench-session-tab__status">
+            {{ session.status === 'running' ? 'running' : `exited ${session.exitCode ?? 0}` }}
+          </span>
+        </button>
+      </div>
     </div>
 
     <div class="workbench-window__chrome">
@@ -1338,18 +1340,27 @@ onUnmounted(() => {
   background: rgba(190, 68, 84, 0.22);
 }
 
+.workbench-window__session-strip-clip {
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  flex: none;
+}
+
 .workbench-window__session-strip {
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  padding: 12px 12px 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  overflow-y: hidden;
+  padding: 12px 12px 28px;
+  margin-bottom: -18px;
   scrollbar-width: none;
+  -ms-overflow-style: none;
   app-region: drag;
 }
 
 .workbench-window__session-strip::-webkit-scrollbar {
-  display: none;
+  width: 0;
+  height: 0;
 }
 
 .workbench-session-tab {
