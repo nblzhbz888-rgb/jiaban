@@ -11,8 +11,17 @@ import {
   useCliProfiles,
 } from './useCliProfiles'
 
+const props = withDefaults(defineProps<{
+  canRestartSession?: boolean
+  restartPending?: boolean
+}>(), {
+  canRestartSession: false,
+  restartPending: false,
+})
+
 const emit = defineEmits<{
   close: []
+  restartSession: []
 }>()
 
 const {
@@ -60,6 +69,18 @@ async function confirmSaved() {
   }
 }
 
+async function saveAndRestart() {
+  try {
+    await saveProfiles()
+    savedMessage.value = '已保存，正在重启当前会话...'
+    clearSavedMessageLater()
+    emit('restartSession')
+  }
+  catch {
+    savedMessage.value = ''
+  }
+}
+
 function updateClaudeMode(mode: ClaudeCodeApiMode) {
   profiles.claude.mode = mode
   if (mode === 'relay' && !profiles.claude.baseUrl) {
@@ -86,6 +107,14 @@ function updateCodexMode(mode: CodexApiMode) {
         <span v-if="savedMessage" class="config-saved">{{ savedMessage }}</span>
         <span v-else-if="isProfilesLoading" class="config-loading">正在加载...</span>
         <button
+          class="config-btn-restart"
+          type="button"
+          :disabled="isProfilesSaving || props.restartPending || !props.canRestartSession"
+          @click="saveAndRestart"
+        >
+          {{ props.restartPending ? '重启中...' : '保存并重启' }}
+        </button>
+        <button
           class="config-btn-save"
           type="button"
           :disabled="isProfilesSaving"
@@ -96,6 +125,7 @@ function updateCodexMode(mode: CodexApiMode) {
         <button
           class="config-close"
           type="button"
+          aria-label="关闭 API 配置"
           title="关闭"
           @click="emit('close')"
         >
@@ -328,6 +358,37 @@ function updateCodexMode(mode: CodexApiMode) {
   font-family: inherit;
 }
 
+.config-btn-restart {
+  height: 26px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(245, 158, 11, 0.24);
+  background: rgba(245, 158, 11, 0.1);
+  color: rgba(180, 83, 9, 0.92);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 120ms ease, transform 120ms ease;
+  font-family: inherit;
+}
+
+:global(html.dark) .config-btn-restart {
+  border-color: rgba(251, 191, 36, 0.22);
+  background: rgba(245, 158, 11, 0.14);
+  color: rgba(252, 211, 77, 0.94);
+}
+
+.config-btn-restart:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.config-btn-restart:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
 :global(html.dark) .config-btn-save {
   background: rgba(255, 255, 255, 0.9);
   color: rgba(0, 0, 0, 0.85);
@@ -343,32 +404,33 @@ function updateCodexMode(mode: CodexApiMode) {
 }
 
 .config-close {
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 30px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
-  background: transparent;
-  color: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.45);
   cursor: pointer;
   transition: all 120ms ease;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 :global(html.dark) .config-close {
-  color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .config-close:hover {
-  background: rgba(0, 0, 0, 0.06);
-  color: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.72);
 }
 
 :global(html.dark) .config-close:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 /* ===== Desc / Error ===== */

@@ -28,7 +28,9 @@ import {
   electronWorkspaceCloseTerminal,
   electronWorkspaceCreateDirectory,
   electronWorkspaceCreateFile,
+  electronWorkspaceCreateTerminal,
   electronWorkspaceDeleteEntry,
+  electronWorkspaceGetCliProfiles,
   electronWorkspaceGetRevision,
   electronWorkspaceGetRoot,
   electronWorkspaceListDirectory,
@@ -46,6 +48,7 @@ import {
   joinWorkspacePath,
   replacePathPrefix,
 } from './ai-workbench/models'
+import { buildEnvOverride } from './ai-workbench/useCliProfiles'
 
 const props = withDefaults(defineProps<{
   variant?: WorkbenchVariant
@@ -82,6 +85,7 @@ const sidebarMode = ref<WorkbenchSidebarMode | null>(props.sidebarMode)
 const focusMode = shallowRef<'terminal' | 'code'>('terminal')
 
 const getWorkspaceRoot = useElectronEventaInvoke(electronWorkspaceGetRoot)
+const getWorkspaceCliProfiles = useElectronEventaInvoke(electronWorkspaceGetCliProfiles)
 const pickWorkspaceRoot = useElectronEventaInvoke(electronWorkspacePickRoot)
 const getWorkspaceRevision = useElectronEventaInvoke(electronWorkspaceGetRevision)
 const listDirectory = useElectronEventaInvoke(electronWorkspaceListDirectory)
@@ -92,6 +96,7 @@ const createWorkspaceDirectory = useElectronEventaInvoke(electronWorkspaceCreate
 const closeWorkspaceTerminal = useElectronEventaInvoke(electronWorkspaceCloseTerminal)
 const renameWorkspaceEntry = useElectronEventaInvoke(electronWorkspaceRenameEntry)
 const deleteWorkspaceEntry = useElectronEventaInvoke(electronWorkspaceDeleteEntry)
+const createWorkspaceTerminal = useElectronEventaInvoke(electronWorkspaceCreateTerminal)
 const closeWindow = useElectronEventaInvoke(electronWindowClose)
 const minimizeWindow = useElectronEventaInvoke(electronWindowMinimize)
 const toggleWindowMaximize = useElectronEventaInvoke(electronWindowToggleMaximize)
@@ -116,6 +121,7 @@ const lastWorkspaceRevision = shallowRef(0)
 const workspaceSyncTimer = shallowRef<number | null>(null)
 const syncingWorkspaceRevision = shallowRef(false)
 const selectingWorkspaceRoot = shallowRef(false)
+const restartingActiveSession = shallowRef(false)
 const sessionWorkspaceStates = reactive<Record<string, SessionWorkspaceState>>({})
 
 const currentTab = computed(() => openTabs.value.find(tab => tab.path === activeTabPath.value) ?? null)
@@ -206,6 +212,23 @@ function toggleApiConfigPanel() {
   updateSidebarMode(sidebarMode.value === 'api-config' ? null : 'api-config')
 }
 
+function dismissSidebar() {
+  if (!sidebarMode.value) {
+    return
+  }
+
+  updateSidebarMode(null)
+}
+
+function handleWindowKeydown(event: KeyboardEvent) {
+  if (event.key !== 'Escape' || !sidebarMode.value) {
+    return
+  }
+
+  event.preventDefault()
+  dismissSidebar()
+}
+
 async function handleWindowClose() {
   await closeWindow()
 }
@@ -244,6 +267,47 @@ async function handleDeleteSession() {
   }
 }
 
+async function handleRestartActiveSession() {
+  const currentSession = sortedSessions.value.find(session => session.id === resolvedActiveSessionId.value) ?? null
+  const restartProfile = currentSession?.profile ?? props.variant
+  const restartCwd = currentSession?.cwd || rootPath.value
+
+  if (!restartCwd || restartingActiveSession.value) {
+    return
+  }
+
+  restartingActiveSession.value = true
+  errorMessage.value = ''
+
+  try {
+    const cliProfiles = await getWorkspaceCliProfiles()
+
+    if (currentSession?.status === 'running') {
+      await closeWorkspaceTerminal({ sessionId: currentSession.id })
+    }
+
+    const nextSession = await createWorkspaceTerminal({
+      cwd: restartCwd,
+      cols: 120,
+      rows: 32,
+      profile: restartProfile,
+      envOverride: buildEnvOverride(cliProfiles, restartProfile),
+    })
+
+    emit('update:activeSessionId', nextSession.id)
+    if (nextSession.profile) {
+      emit('updateVariant', nextSession.profile)
+    }
+    dismissSidebar()
+  }
+  catch (error) {
+    errorMessage.value = errorMessageFrom(error) ?? '重启当前会话失败'
+  }
+  finally {
+    restartingActiveSession.value = false
+  }
+}
+
 function getSessionTabLabel(session: ElectronWorkspaceTerminalSession) {
   const workspaceRoot = sessionWorkspaceStates[session.id]?.rootPath ?? session.cwd
   return workspaceRoot.split(SESSION_PATH_SPLIT_RE).pop() || workspaceRoot
@@ -276,6 +340,14 @@ watch(sortedSessions, (sessions) => {
     emit('updateVariant', fallbackSession.profile)
   }
 }, { immediate: true })
+
+onMounted(() => {
+  window.addEventListener('keydown', handleWindowKeydown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleWindowKeydown)
+})
 
 function updateLoadingDirectory(path: string, isLoading: boolean) {
   const nextPaths = new Set(loadingDirectoryPaths.value)
@@ -1078,16 +1150,23 @@ onUnmounted(() => {
       leave-from-class="opacity-100 translate-y-0 scale-100"
       leave-to-class="opacity-0 translate-y-2 scale-95"
     >
-      <div v-if="sidebarMode" class="workbench-sidebar-overlay">
-        <div class="workbench-sidebar">
+      <div
+        v-if="sidebarMode"
+        class="workbench-sidebar-overlay"
+        @click="dismissSidebar"
+      >
+        <div class="workbench-sidebar" @click.stop>
           <AiWorkbenchCliConfigPanel
             v-if="sidebarMode === 'api-config'"
-            @close="updateSidebarMode(null)"
+            :can-restart-session="Boolean(rootPath)"
+            :restart-pending="restartingActiveSession"
+            @close="dismissSidebar"
+            @restart-session="void handleRestartActiveSession()"
           />
           <AiWorkbenchInstallerPanel
             v-else-if="sidebarMode === 'environment-install' || sidebarMode === 'cli-install'"
             :mode="sidebarMode"
-            @close="updateSidebarMode(null)"
+            @close="dismissSidebar"
           />
         </div>
       </div>
@@ -1266,6 +1345,7 @@ onUnmounted(() => {
   padding: 12px 12px 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   scrollbar-width: none;
+  app-region: drag;
 }
 
 .workbench-window__session-strip::-webkit-scrollbar {
@@ -1374,11 +1454,11 @@ onUnmounted(() => {
   align-items: flex-start;
   justify-content: flex-end;
   padding-right: 12px;
-  pointer-events: none;
+  pointer-events: auto;
+  background: linear-gradient(90deg, rgba(6, 8, 14, 0) 0%, rgba(6, 8, 14, 0.14) 65%, rgba(6, 8, 14, 0.22) 100%);
 }
 
 .workbench-sidebar {
-  pointer-events: auto;
   width: min(360px, calc(100vw - 64px));
   height: min(640px, calc(100% - 24px));
 }
